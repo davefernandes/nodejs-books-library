@@ -11,7 +11,7 @@ var Book        = require('../models/book');
 var Category    = require('../models/category');
 var Copy        = require('../models/copy');
 
-const { body, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 const storage = multer.diskStorage({
     destination: './public/book_images/',
@@ -117,11 +117,11 @@ exports.book_create_post = [
     },
 
     // Validate fields.
-    body('title', 'Title must not be empty.').isLength({ min: 1 }).trim().escape(),
-    body('author', 'Author must not be empty.').isLength({ min: 1 }).trim().escape(),
-    body('summary', 'Summary must not be empty.').isLength({ min: 1 }).trim().escape(),
-    body('isbn', 'ISBN must not be empty').isLength({ min: 1 }).trim().escape(),
-    body('category.*').escape(),
+    check('title', 'Title must not be empty.').isLength({ min: 1 }).trim().escape(),
+    check('author', 'Author must not be empty.').isLength({ min: 1 }).trim().escape(),
+    check('summary', 'Summary must not be empty.').isLength({ min: 1 }).trim().escape(),
+    check('isbn', 'ISBN must not be empty').isLength({ min: 1 }).trim().escape(),
+    check('category.*').escape(),
     
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -246,11 +246,11 @@ exports.book_update_post = [
     },
    
     // Validate fields.
-    body('title', 'Title must not be empty.').isLength({ min: 2 }).trim().escape(),
-    body('author', 'Author must not be empty.').isLength({ min: 1 }).trim().escape(),
-    body('summary', 'Summary must not be empty.').isLength({ min: 1 }).trim().escape(),
-    body('isbn', 'ISBN must not be empty').isLength({ min: 1 }).trim().escape(),
-    body('category.*').escape(),
+    check('title', 'Title must not be empty.').isLength({ min: 2 }).trim().escape(),
+    check('author', 'Author must not be empty.').isLength({ min: 1 }).trim().escape(),
+    check('summary', 'Summary must not be empty.').isLength({ min: 1 }).trim().escape(),
+    check('isbn', 'ISBN must not be empty').isLength({ min: 1 }).trim().escape(),
+    check('category.*').escape(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {

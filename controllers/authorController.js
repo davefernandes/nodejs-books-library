@@ -5,7 +5,7 @@ var entities    = new Entities();
 var Author  = require('../models/author');
 var Book    = require('../models/book');
 
-const { body, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 /*
 * Get all the authors
@@ -68,12 +68,12 @@ exports.author_create_get = function (req, res, next) {
 exports.author_create_post = [
 
     // Validate fields.
-    body('first_name').isLength({ min: 1 }).trim().withMessage('First name must be specified.')
+    check('first_name').isLength({ min: 1 }).trim().withMessage('First name must be specified.')
         .matches(/^[a-zA-Z \.]+$/,'i').withMessage('First name has invalid characters.').escape(),
-    body('family_name').isLength({ min: 1 }).trim().withMessage('Family name must be specified.')
+    check('family_name').isLength({ min: 1 }).trim().withMessage('Family name must be specified.')
         .matches(/^[a-zA-Z \.]+$/,'i').withMessage('Family name has invalid characters.').escape(),
-    body('date_of_birth', 'Invalid date of birth').optional({ checkFalsy: true }).isISO8601().toDate(),
-    body('date_of_death', 'Invalid date of death').optional({ checkFalsy: true }).isISO8601().toDate(),
+    check('date_of_birth', 'Invalid date of birth').optional({ checkFalsy: true }).isISO8601().toDate(),
+    check('date_of_death', 'Invalid date of death').optional({ checkFalsy: true }).isISO8601().toDate(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -134,12 +134,12 @@ exports.author_update_get = function (req, res, next) {
 exports.author_update_post = [
 
     // Validate fields.
-    body('first_name').isLength({ min: 1 }).trim().withMessage('First name must be specified.')
+    check('first_name').isLength({ min: 1 }).trim().withMessage('First name must be specified.')
         .matches(/^[a-zA-Z \.]+$/,'i').withMessage('First name has invalid characters.').escape(),
-    body('family_name').isLength({ min: 1 }).trim().withMessage('Family name must be specified.')
+    check('family_name').isLength({ min: 1 }).trim().withMessage('Family name must be specified.')
         .matches(/^[a-zA-Z \.]+$/,'i').withMessage('Family name has invalid characters.').escape(),
-    body('date_of_birth', 'Invalid date of birth').optional({ checkFalsy: true }).isISO8601().toDate(),
-    body('date_of_death', 'Invalid date of death').optional({ checkFalsy: true }).isISO8601().toDate(),
+    check('date_of_birth', 'Invalid date of birth').optional({ checkFalsy: true }).isISO8601().toDate(),
+    check('date_of_death', 'Invalid date of death').optional({ checkFalsy: true }).isISO8601().toDate(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {

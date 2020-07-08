@@ -3,7 +3,7 @@ var async       = require('async');
 var Copy    = require('../models/copy');
 var Book    = require('../models/book');
 
-const { body, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 /*
 * Get all the copies
@@ -58,10 +58,10 @@ exports.copy_create_get = function(req, res, next) {
 exports.copy_create_post = [
 
     // Validate fields.
-    body('book', 'Book must be specified').isLength({ min: 1 }).trim().escape(),
-    body('reference', 'Reference must be specified').isLength({ min: 1 }).trim().escape(),
-    body('due_back', 'Invalid date').optional({ checkFalsy: true }).isISO8601().toDate(),
-    body('status').escape(),
+    check('book', 'Book must be specified').isLength({ min: 1 }).trim().escape(),
+    check('reference', 'Reference must be specified').isLength({ min: 1 }).trim().escape(),
+    check('due_back', 'Invalid date').optional({ checkFalsy: true }).isISO8601().toDate(),
+    check('status').escape(),
     
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -128,10 +128,10 @@ exports.copy_update_get = function(req, res, next) {
 exports.copy_update_post = [
 
     // Validate fields.
-    body('book', 'Book must be specified').isLength({ min: 1 }).trim().escape(),
-    body('reference', 'Reference must be specified').isLength({ min: 1 }).trim().escape(),
-    body('due_back', 'Invalid date').optional({ checkFalsy: true }).isISO8601().toDate(),
-    body('status').escape(),
+    check('book', 'Book must be specified').isLength({ min: 1 }).trim().escape(),
+    check('reference', 'Reference must be specified').isLength({ min: 1 }).trim().escape(),
+    check('due_back', 'Invalid date').optional({ checkFalsy: true }).isISO8601().toDate(),
+    check('status').escape(),
     
     // Process request after validation and sanitization.
     (req, res, next) => {

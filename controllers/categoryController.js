@@ -5,7 +5,7 @@ var entities    = new Entities();
 var Category    = require('../models/category');
 var Book        = require('../models/book');
 
-const { body, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 
 /*
@@ -69,7 +69,7 @@ exports.category_create_get = function(req, res, next) {
 exports.category_create_post = [
 
     // Validate that the name field is not empty.
-    body('name', 'Category name required').isLength({ min: 1 }).trim().escape(),
+    check('name', 'Category name required').isLength({ min: 1 }).trim().escape(),
 
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -136,7 +136,7 @@ exports.category_update_get = function(req, res, next) {
 exports.category_update_post = [
    
     // Validate that the name field is not empty.
-    body('name', 'Category name required').isLength({ min: 1 }).trim().escape(),
+    check('name', 'Category name required').isLength({ min: 1 }).trim().escape(),
     
     // Process request after validation and sanitization.
     (req, res, next) => {
