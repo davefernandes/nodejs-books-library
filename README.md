@@ -30,4 +30,4 @@ We can create copies of a Book, and each Copy can then be Loaned out to readers/
 The project needs these 2 variables to be set in .env
 
 1. MONGODB_URI - Your MongoDB connection string
-2. PORT- The listening port for NodeJS Server
+2. PORT- The listening port for NodeJS Server(default:3000)

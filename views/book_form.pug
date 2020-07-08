@@ -1,0 +1,54 @@
+extends layout
+
+block content
+    hr
+    div(class='row mb-2')
+        div(class='col-12')
+            h1(class='mb-4') #{action_type} Book
+            form(method='post', action='', enctype='multipart/form-data')
+                div.form-row
+                    div.form-group.col-md-12
+                        label(for='title') Title:
+                        input#title.form-control(type='text', placeholder='Name of book' name='title' required='true' value=(book===undefined ? '' : book.title) )
+                    div.form-group.col-md-12
+                        label(for='author') Author:
+                        select#author.form-control(type='select', placeholder='Select author' name='author' required='true' )
+                            - authors.sort(function(a, b) {let textA = a.family_name.toUpperCase(); let textB = b.family_name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+                            for author in authors
+                                if book
+                                    option(value=author._id selected=(author._id.toString()==book.author._id.toString() ? 'selected' : false) ) #{author.fullname}
+                                else
+                                    option(value=author._id) #{author.fullname}
+                    div.form-group.col-md-12
+                        label(for='summary') Summary:
+                        input#summary.form-control(type='textarea', placeholder='Summary' name='summary' value=(book===undefined ? '' : book.summary) required='true')
+                    div.form-group.col-md-12
+                        label(for='isbn') ISBN:
+                        input#isbn.form-control(type='text', placeholder='ISBN13' name='isbn' value=(undefined===book ? '' : book.isbn) required='true')
+                    div.form-group.col-md-12
+                        if book && cover_exists
+                            div 
+                                img.img-fluid(src='/book_images/'+book.book_image, style='max-height:150px;')
+                                | &nbsp;
+                                a.btn.btn-sm.btn-danger(href=book.url+'/deleteimage', onClick='return confirm(\'Are you sure?\')') Delete Image
+                        else
+                            label(for='book_image') Cover Image:
+                            .custom-file
+                                label.custom-file-label(for='book_image') Cover Image:
+                                input#book_image.custom-file-input(type='file', name='book_image')
+                            
+                    div.form-group.col-md-12
+                        label Categories:
+                        div
+                            for cat in categories
+                                div(style='display: inline; padding-right:10px;')
+                                    input.checkbox-input(type='checkbox', name='category', id=cat._id, value=cat._id, checked=cat.checked )
+                                    label(for=cat._id) &nbsp;#{cat.name}
+                .form-row
+                    .form-group.col-md-12
+                        button.btn.btn-success(type='submit') #{action_type}
+
+            if errors 
+                ul(class='alert alert-warning list-unstyled')
+                    for error in errors
+                        li!= error.msg

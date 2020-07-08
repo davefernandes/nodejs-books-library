@@ -1,0 +1,31 @@
+extends layout
+
+block content
+    hr
+    div(class='row mb-4')
+        div(class='col-12')
+            h1(class='mb-4') Delete Copy
+            h2 #{copy.book.title}
+            p Reference: #{copy.reference}
+            p <strong>Status: </strong>
+                if copy.status=='Available'
+                    span.text-success #{copy.status}
+                else if copy.status=='Retired'
+                    span.text-danger #{copy.status}
+                else
+                    span.text-warning #{copy.status} 
+            
+            if copy.status!='Available' && copy.status!='Retired'
+                p #[strong Due back:] #{copy.due_back_yyyy_mm_dd}
+            
+            hr
+
+            p.display-5.text-danger 
+                strong Do you really want to delete this copy ?
+
+            form(method='POST' action='')
+                div.form-group
+                    input#id.form-control(type='hidden',name='id', required='true', value=copy._id )
+                    a.btn.btn-warning(href='/copy/'+copy._id) Cancel
+                    | &nbsp;
+                    button.btn.btn-primary(type='submit') Delete

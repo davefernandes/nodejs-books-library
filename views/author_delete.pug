@@ -1,0 +1,34 @@
+extends layout
+
+block content
+    hr
+    div(class='row mb-4')
+        div(class='col-12')
+            h1(class='mb-4') Delete Author
+            h2 #{author.fullname}
+            p.lead #{author.lifespan}
+
+            if author_books.length
+                p.alert.alert-danger
+                    strong Delete the following books before attempting to delete this author.
+
+                div.card
+                    div.card-header Books
+                    .list-group
+                        each book in author_books
+                            a.list-group-item.list-group-item-action(href=book.url)
+                                div.d-flex.w-100.justify-content-between 
+                                    h5.mb-1 #{book.title}
+                                p.mb-1 #{book.summary}
+                hr
+                a.btn.btn-warning(href='/author/'+author._id) Back
+            else
+                p.display-5.text-danger 
+                    strong Do you really want to delete this Author?
+
+                form(method='POST' action='')
+                    div.form-group
+                        input#authorid.form-control(type='hidden',name='authorid', required='true', value=author._id )
+                        a.btn.btn-warning(href='/author/'+author._id) Cancel
+                        | &nbsp;
+                        button.btn.btn-primary(type='submit') Delete

@@ -1,0 +1,34 @@
+extends layout
+
+block content
+    hr
+    div(class='row mb-2')
+        div(class='col-12')
+            h1(class='mb-4') Copy List
+            if copy_list.length
+                div(class='table-responsive-md')
+                    table(class='table table-bordered table-striped table-sm')
+                        thead
+                            tr(class='table-primary')
+                                th Book
+                                th Reference
+                                th Status
+                                th Due Back
+                                th(style='width:180px;')
+                        tbody
+                            each copy in copy_list
+                                tr
+                                    td #{copy.book.title}
+                                    td #{copy.reference}
+                                    td #{copy.status}
+                                    td 
+                                        if copy.status!='Available'
+                                            #{copy.due_back_yyyy_mm_dd}
+                                    td
+                                        a(href=copy.url, class='btn btn-sm btn-info', role='button') View
+                                        | &nbsp;
+                                        a(href=copy.url+'/update', class='btn btn-sm btn-primary', role='button') Update
+                                        | &nbsp;
+                                        a(href=copy.url+'/delete', class='btn btn-sm btn-danger', role='button') Delete
+            else
+                div(class='alert alert-warning') No book copies found.

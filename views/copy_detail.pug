@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    hr
+    div(class='row mb-4')
+        div(class='col-12')
+            h1(class='mb-4') Copy Details
+            h2
+                a(href=copy.book.url) #{copy.book.title}
+            p <strong>Reference: </strong> #{copy.reference}
+            p <strong>Status: </strong>
+                if copy.status=='Available'
+                    span.text-success #{copy.status}
+                else if copy.status=='Retired'
+                    span.text-danger #{copy.status}
+                else
+                    span.text-warning #{copy.status} 
+            
+            if copy.status!='Available'
+                p #[strong Due back:] #{copy.due_back_yyyy_mm_dd}
+
+            hr
+            a.btn.btn-dark(href='/copy') List
+            | &nbsp;
+            a.btn.btn-primary(href=copy.url+'/update') Update
+            | &nbsp;
+            a.btn.btn-danger(href=copy.url+'/delete') Delete

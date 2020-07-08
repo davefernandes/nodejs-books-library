@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    hr
+    div(class='row mb-4')
+        div(class='col-12')
+            h1(class='mb-4') Category Details
+            h2 #{category.name}
+
+            div.card
+                div.card-header Books
+                .list-group
+                    each book in category_books
+                        a.list-group-item.list-group-item-action(href=book.url)
+                            div.d-flex.w-100.justify-content-between 
+                                h5.mb-1 #{book.title}
+                            p.mb-1 #{book.summary}
+                    else
+                        .list-group-item This category has no books.
+            hr
+            a.btn.btn-dark(href='/category') List
+            | &nbsp;
+            a.btn.btn-primary(href=category.url+'/update') Update
+            | &nbsp;
+            a.btn.btn-danger(href=category.url+'/delete') Delete

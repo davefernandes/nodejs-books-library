@@ -1,0 +1,36 @@
+extends layout
+
+block content
+    hr
+    div(class='row mb-2')
+        div(class='col-12')
+            h1(class='mb-4') #{action_type} Copy
+            form(method='post', action='')
+                div.form-row
+                    div.form-group.col-md-12
+                        label(for='book') Book:
+                        select#book.form-control(type='select', placeholder='Select book' name='book' required='true' )
+                            - book_list.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+                            for book in book_list
+                                option(value=book._id, selected=(selected_book==book._id.toString() ? 'selected' : false) ) #{book.title}
+                    div.form-group.col-md-12
+                        label(for='reference') Reference:
+                        input#reference.form-control(type='text', placeholder='Reference' name='reference' required='true' value=(copy===undefined ? '' : copy.reference) )
+                    div.form-group.col-md-6
+                        label(for='due_back') Date Due Back:
+                        input#due_back.form-control(type='date', name='due_back' value=(copy===undefined ? '' : copy.due_back_yyyy_mm_dd))
+                    div.form-group.col-md-6
+                        label(for='status') Status:
+                        select#status.form-control(type='select', placeholder='Select status' name='status' required='true' )                            
+                            option(value='Available' selected=(copy===undefined || copy.status!='Available' ? false:'selected')) Available
+                            option(value='Loaned' selected=(copy===undefined || copy.status!='Loaned' ? false:'selected')) Loaned
+                            option(value='Reserved' selected=(copy===undefined || copy.status!='Reserved' ? false:'selected')) Reserved
+                            option(value='Retired' selected=(copy===undefined || copy.status!='Retired' ? false:'selected')) Retired
+                .form-row
+                    .form-group.col-md-12
+                        button.btn.btn-success(type='submit') #{action_type}
+
+            if errors 
+                ul(class='alert alert-warning list-unstyled')
+                    for error in errors
+                        li!= error.msg

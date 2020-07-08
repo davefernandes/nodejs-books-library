@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    hr
+    div(class='row mb-4')
+        div(class='col-12')
+            h1(class='mb-4') Author Details
+            h2 #{author.fullname}
+            p.lead #{author.lifespan}
+
+            div.card
+                div.card-header Books
+                .list-group
+                    each book in author_books
+                        a.list-group-item.list-group-item-action(href=book.url)
+                            div.d-flex.w-100.justify-content-between 
+                                h5.mb-1 #{book.title}
+                            p.mb-1 #{book.summary}
+                    else
+                        .list-group-item This author has no books.
+            hr
+            a.btn.btn-dark(href='/author') List
+            | &nbsp;
+            a.btn.btn-primary(href=author.url+'/update') Update
+            | &nbsp;
+            a.btn.btn-danger(href=author.url+'/delete') Delete

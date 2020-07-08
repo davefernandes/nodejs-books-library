@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    hr
+    div(class='row mb-2')
+        div(class='col-12')
+            h1(class='mb-4') Category List
+            if category_list.length
+                div(class='table-responsive-sm')
+                    table(class='table table-bordered table-striped table-sm')
+                        thead
+                            tr(class='table-primary')
+                                th Name
+                                th(style='width:180px;')
+                        tbody
+                            each category in category_list
+                                tr
+                                    td #{category.name}
+                                    td.text-right
+                                        a(href=category.url, class='btn btn-sm btn-info', role='button') View
+                                        | &nbsp;
+                                        a(href=category.url+'/update', class='btn btn-sm btn-primary', role='button') Update
+                                        | &nbsp;
+                                        a(href=category.url+'/delete', class='btn btn-sm btn-danger', role='button') Delete
+            else
+                div(class='alert alert-warning') No categories found.

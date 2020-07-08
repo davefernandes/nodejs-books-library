@@ -1,0 +1,40 @@
+extends layout
+
+block content
+    hr
+    div(class='row mb-4')
+        div(class='col-12')
+            h1(class='mb-4') Book Details
+            h2 #{book.title}           
+            p.lead #{book.author.fullname}
+            p <strong>Summary:</strong> #{book.summary}
+            p
+                strong ISBN: #{book.isbn}
+            p   
+                strong Categories:
+                | &nbsp;
+                each cat in book.category
+                    a(href=cat.url)
+                        span(class='badge badge-primary') #{cat.name}
+                    | &nbsp;
+            if book.book_image && cover_exists
+                div.my-3 
+                    img.img-fluid(src='/book_images/'+book.book_image, style='max-height:150px;')
+                    | &nbsp;
+                    a.btn.btn-sm.btn-danger(href=book.url+'/deleteimage', onClick='return confirm(\'Are you sure?\')') Delete Image
+            div.card
+                div.card-header Copies
+                .list-group
+                    each copy in book_copies
+                        a.list-group-item.list-group-item-action(href=copy.url)
+                            div.d-flex.w-100.justify-content-between 
+                                h5.mb-1 #{copy.reference}
+                            p.mb-1 #{copy.status}
+                    else
+                        .list-group-item This book has no copies.
+            hr
+            a.btn.btn-dark(href='/book') List
+            | &nbsp;
+            a.btn.btn-primary(href=book.url+'/update') Update
+            | &nbsp;
+            a.btn.btn-danger(href=book.url+'/delete') Delete

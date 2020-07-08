@@ -1,0 +1,34 @@
+extends layout
+
+block content
+    hr
+    div(class='row mb-2')
+        div(class='col-12')
+            h1(class='mb-4') Book List
+            if book_list.length
+                div(class='table-responsive-md')
+                    table(class='table table-bordered table-striped table-sm')
+                        thead
+                            tr(class='table-primary')
+                                th Title
+                                th Author
+                                th Categories
+                                th(style='width:180px;')
+                        tbody
+                            each book in book_list
+                                tr
+                                    td #{book.title}
+                                    td #{book.author.fullname}
+                                    td
+                                        each cat in book.category
+                                            span(class='badge badge-primary') #{cat.name}
+                                            | &nbsp;
+
+                                    td.text-right
+                                        a(href=book.url, class='btn btn-sm btn-info', role='button') View
+                                        | &nbsp;
+                                        a(href=book.url+'/update', class='btn btn-sm btn-primary', role='button') Update
+                                        | &nbsp;
+                                        a(href=book.url+'/delete', class='btn btn-sm btn-danger', role='button') Delete
+            else
+                div(class='alert alert-warning') No books found.

@@ -1,0 +1,33 @@
+extends layout
+
+block content
+    hr
+    div(class='row mb-4')
+        div(class='col-12')
+            h1(class='mb-4') Delete Category
+            h2 #{category.name}
+
+            if category_books.length
+                p.alert.alert-danger
+                    strong Delete the following books before attempting to delete this category.
+
+                div.card
+                    div.card-header Books
+                    .list-group
+                        each book in category_books
+                            a.list-group-item.list-group-item-action(href=book.url)
+                                div.d-flex.w-100.justify-content-between 
+                                    h5.mb-1 #{book.title}
+                                p.mb-1 #{book.summary}
+                hr
+                a.btn.btn-warning(href='/category/'+category._id) Back
+            else
+                p.display-5.text-danger 
+                    strong Do you really want to delete this Category?
+
+                form(method='POST' action='')
+                    div.form-group
+                        input#id.form-control(type='hidden',name='id', required='true', value=category._id )
+                        a.btn.btn-warning(href='/category/'+category._id) Cancel
+                        | &nbsp;
+                        button.btn.btn-primary(type='submit') Delete

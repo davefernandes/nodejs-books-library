@@ -1,0 +1,56 @@
+doctype html
+html(lang='en')
+    head
+        include head.pug
+    body
+        div(class='container')
+            header(class='lib-header py-3')
+                div(class='row flex-nowrap justify-content-center align-items-center')
+                    div(class='col-6 col-sm-4 text-center')
+                        a(href='/', class='lib-header-txt text-dark text-decoration-none') <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" style="margin-top:-8px;"><path fill="currentColor" d="M496 128v16a8 8 0 0 1-8 8h-24v12c0 6.627-5.373 12-12 12H60c-6.627 0-12-5.373-12-12v-12H24a8 8 0 0 1-8-8v-16a8 8 0 0 1 4.941-7.392l232-88a7.996 7.996 0 0 1 6.118 0l232 88A8 8 0 0 1 496 128zm-24 304H40c-13.255 0-24 10.745-24 24v16a8 8 0 0 0 8 8h464a8 8 0 0 0 8-8v-16c0-13.255-10.745-24-24-24zM96 192v192H60c-6.627 0-12 5.373-12 12v20h416v-20c0-6.627-5.373-12-12-12h-36V192h-64v192h-64V192h-64v192h-64V192H96z"></path></svg> LIBRARY <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" style="margin-top:-8px;"><path fill="currentColor" d="M496 128v16a8 8 0 0 1-8 8h-24v12c0 6.627-5.373 12-12 12H60c-6.627 0-12-5.373-12-12v-12H24a8 8 0 0 1-8-8v-16a8 8 0 0 1 4.941-7.392l232-88a7.996 7.996 0 0 1 6.118 0l232 88A8 8 0 0 1 496 128zm-24 304H40c-13.255 0-24 10.745-24 24v16a8 8 0 0 0 8 8h464a8 8 0 0 0 8-8v-16c0-13.255-10.745-24-24-24zM96 192v192H60c-6.627 0-12 5.373-12 12v20h416v-20c0-6.627-5.373-12-12-12h-36V192h-64v192h-64V192h-64v192h-64V192H96z"></path></svg>
+            
+            div(class='row my-3')
+                div(class='col-3')
+                    div(class='px-2 py-4 text-primary rounded border border-primary text-center')
+                        if typeof(data) != 'undefined'
+                            h1(class='display-5') #{data.book_count}
+                                | <br>Books
+                        else
+                            h1(class='display-5') Books
+                        div
+                            <a href="/book">List</a> | <a href="/book/create">Create</a>
+                div(class='col-3')
+                    div(class='px-2 py-4 text-success rounded border border-success text-center')
+                        if typeof(data) != 'undefined'
+                            h1(class='display-5') #{data.author_count}
+                                | <br>Authors
+                        else
+                            h1(class='display-5') Authors
+                        div
+                            <a href="/author">List</a> | <a href="/author/create">Create</a>
+                div(class='col-3')
+                    div(class='px-2 py-4 text-danger rounded border border-danger text-center')
+                        if typeof(data) != 'undefined'
+                            h1(class='display-5') #{data.category_count}
+                                | <br>Categories
+                        else
+                            h1(class='display-5') Categories
+                        div
+                            <a href="/category">List</a> | <a href="/category/create">Create</a>
+                div(class='col-3')
+                    div(class='px-2 py-4 text-info rounded border border-info text-center')
+                        if typeof(data) != 'undefined'
+                            h1(class='display-5') #{data.copy_count}
+                                | <br>Copies
+                        else
+                            h1(class='display-5') Copies
+                        div
+                            <a href="/copy">List</a> | <a href="/copy/create">Create</a>
+            //- Main Content
+            main
+                block content
+        //- Footer
+        include footer.pug
+        //- JavaScript
+        script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js', integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj', crossorigin='anonymous')
+        script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js', integrity='sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI', crossorigin='anonymous')

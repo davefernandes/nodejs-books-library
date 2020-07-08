@@ -1,0 +1,56 @@
+extends layout
+
+block content
+    hr
+    div(class='row mb-4')
+        div(class='col-12')
+            h1(class='mb-4') Delete Book
+            h2 #{book.title}
+            p.lead 
+                | Author: 
+                a(href=book.author.url) #{book.author.fullname}
+            p Summary: #{book.summary}
+            p ISBN: #{book.isbn}
+            p   
+                strong Categories:&nbsp;
+                each cat in book.category
+                    a(href=cat.url)
+                        span(class='badge badge-primary') #{cat.name}
+                    | &nbsp;
+
+            if book_copies.length
+                p.alert.alert-danger
+                    strong Delete the following copies before attempting to delete this Book.
+
+                div.card
+                    div.card-header Copies
+                    .list-group
+                        each book_copy in book_copies
+                            a.list-group-item.list-group-item-action(href=book_copy.url)
+                                if book_copy.status=='Available'
+                                    p.text-success #{book_copy.status}
+                                else if book_copy.status=='Retired'
+                                    p.text-danger #{book_copy.status}
+                                else
+                                    p.text-warning #{book_copy.status}
+                                p
+                                    strong 
+                                        | Reference: #{book_copy.reference}
+                                
+                                if book_copy.status!='Available'
+                                    p
+                                        strong
+                                            | Due back: #{book_copy.due_back_yyyy_mm_dd}
+                                       
+                hr
+                a.btn.btn-warning(href='/book/'+book._id) Back
+            else
+                p.display-5.text-danger 
+                    strong Do you really want to delete this Book?
+
+                form(method='POST' action='')
+                    div.form-group
+                        input#id.form-control(type='hidden',name='id', required='true', value=book._id )
+                        a.btn.btn-warning(href='/book/'+book._id) Cancel
+                        | &nbsp;
+                        button.btn.btn-primary(type='submit') Delete
