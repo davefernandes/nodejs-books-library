@@ -24,3 +24,10 @@ The project has the following models
 The book is a master data of the each Book. You may link multiple Categories to each book and assign an Author to each book.
 
 We can create copies of a Book, and each Copy can then be Loaned out to readers/customers.
+
+### Environment Variables
+
+The project needs these 2 variables to be set in .env
+
+1. MONGODB_URI - Your MongoDB connection string
+2. PORT- The listening port for NodeJS Server
