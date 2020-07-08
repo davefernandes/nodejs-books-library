@@ -246,7 +246,7 @@ exports.book_update_post = [
     },
    
     // Validate fields.
-    check('title', 'Title must not be empty.').isLength({ min: 2 }).trim().escape(),
+    check('title', 'Title must not be empty.').isLength({ min: 1 }).trim().escape(),
     check('author', 'Author must not be empty.').isLength({ min: 1 }).trim().escape(),
     check('summary', 'Summary must not be empty.').isLength({ min: 1 }).trim().escape(),
     check('isbn', 'ISBN must not be empty').isLength({ min: 1 }).trim().escape(),
