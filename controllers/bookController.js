@@ -392,6 +392,14 @@ exports.book_delete_post = function(req, res, next) {
             return;
         }
         else {
+
+            // Delete Cover image if exists
+            if( results.book.book_image && fs.existsSync(process.cwd()+'/public/book_images/'+results.book.book_image) ) {
+                fs.unlink(process.cwd()+'/public/book_images/'+results.book.book_image, (err) => {
+                    if (err) { return next(err); }    
+                });          
+            } 
+            
             // Book has no Copy objects. Delete object and redirect to the list of books.
             Book.findByIdAndRemove(req.body.id, function deleteBook(err) {
                 if (err) { return next(err); }
