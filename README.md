@@ -1,9 +1,11 @@
 # nodejs-books-library
+
 ## Books Library Manager using NodeJS
 
 > This is a simple project which involves the use of multiple tools for a NodeJS project.
 
 ### Different Tools/Packages used are
+
 1. Bootstrap for the front-end templating
 2. Express as the web-framework
 3. MongoDB Atlas for the database.
@@ -14,6 +16,7 @@
 8. express-validator for form validation
 
 ## Basic Usage
+
 The project has the following models
 
 1. Books
@@ -31,3 +34,7 @@ The project needs these 2 variables to be set in .env
 
 1. MONGODB_URI - Your MongoDB connection string
 2. PORT- The listening port for NodeJS Server(default:3000)
+
+### Demo
+
+[Live Preview](https://www.d4ve.dev/node-library/)
